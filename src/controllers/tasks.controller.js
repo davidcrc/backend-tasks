@@ -17,9 +17,13 @@ export const getTasksCount = async (req, res) => {
 export const getTask = async (req, res) => {
   const id = req.params.id;
   const query = "SELECT * FROM tasks where id = $1";
-  const response = await connect.query(query, [id]);
+  try {
+    const response = await connect.query(query, [id]);
 
-  res.status(200).json(response.rows);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log("err", error.message);
+  }
 };
 
 export const saveTask = async (req, res) => {
@@ -40,7 +44,7 @@ export const deleteTask = async (req, res) => {
   const query = "DELETE FROM tasks where id = $1";
   const response = await connect.query(query, [id]);
 
-  console.log("ress delete", response)
+  // console.log("ress delete", response)
   // res.status(200).json(response.rowCount);
   res.sendStatus(204);
 };
@@ -70,7 +74,7 @@ export const updateTask = async (req, res) => {
 
     // console.log("el ress", result );
     res.sendStatus(204);
-    
+
   } catch (error) {
     console.log("err", error.message)
     

@@ -1,6 +1,9 @@
+import { config as dotenv} from 'dotenv'
+dotenv();
+
 export const config = {
-  host: 'localhost',
-  user: 'postgres',
-  password: '',
-  database: 'tasksdb'
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'postgres' ,
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_DATABASE || 'test',
 }
