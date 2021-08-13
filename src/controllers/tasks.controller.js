@@ -16,11 +16,11 @@ export const getTasksCount = async (req, res) => {
 
 export const getTask = async (req, res) => {
   const id = req.params.id;
-  const query = "SELECT * FROM tasks where id = $1";
+  const query = "SELECT * FROM tasks where id = $1 limit 1";
   try {
     const response = await connect.query(query, [id]);
 
-    res.status(200).json(response.rows);
+    res.status(200).json(response.rows[0]);
   } catch (error) {
     console.log("err", error.message);
   }
